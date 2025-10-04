@@ -1,4 +1,6 @@
 {
+  "update-profile": "https://functions.poehali.dev/69844200-720c-455b-a8f1-144f8d100741",
+  "change-password": "https://functions.poehali.dev/771a8405-83fc-4ff7-acca-ff945b2e0d78",
   "register": "https://functions.poehali.dev/1d1511d6-493b-4fac-a37e-ba09d4c9e665",
   "login": "https://functions.poehali.dev/f6598e55-c953-4948-8fda-08c3684c816e"
 }

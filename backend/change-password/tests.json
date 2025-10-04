@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Change password with valid credentials",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "userId": 1,
+        "currentPassword": "password123",
+        "newPassword": "newpassword123"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
