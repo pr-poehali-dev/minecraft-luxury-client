@@ -89,7 +89,7 @@ const Index = () => {
                     className="border-2 border-primary/50 hover:bg-primary/10"
                     asChild
                   >
-                    <a href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.youtube.com/channel/UCihOOmlMqx7lMcehrRseWLg" target="_blank" rel="noopener noreferrer">
                       <Icon name="Youtube" size={20} />
                     </a>
                   </Button>
