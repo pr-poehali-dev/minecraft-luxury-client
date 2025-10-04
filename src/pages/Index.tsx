@@ -45,7 +45,13 @@ const Index = () => {
               </a>
               {user ? (
                 <div className="flex items-center gap-4">
-                  <span className="text-foreground/80">Привет, {user.username}!</span>
+                  <button
+                    onClick={() => navigate('/profile')}
+                    className="flex items-center gap-2 text-foreground/80 hover:text-foreground transition-colors font-medium"
+                  >
+                    <Icon name="User" size={18} />
+                    {user.username}
+                  </button>
                   <button 
                     onClick={handleLogout}
                     className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg hover:bg-destructive/90 transition-colors font-medium"
