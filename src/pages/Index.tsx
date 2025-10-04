@@ -52,9 +52,12 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 animate-glow"
+                  asChild
                 >
-                  <Icon name="Download" size={20} className="mr-2" />
-                  Скачать
+                  <a href="https://luxury.client" target="_blank" rel="noopener noreferrer">
+                    <Icon name="Download" size={20} className="mr-2" />
+                    Скачать
+                  </a>
                 </Button>
                 <Button 
                   size="lg" 
