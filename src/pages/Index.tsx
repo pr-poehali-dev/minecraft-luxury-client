@@ -66,8 +66,12 @@ const Index = () => {
             <div className="relative animate-scale-in">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-3xl"></div>
               <div className="relative bg-card/50 backdrop-blur-sm rounded-3xl p-8 border border-border">
-                <div className="aspect-square bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 rounded-2xl flex items-center justify-center">
-                  <Icon name="Box" size={120} className="text-primary/50" />
+                <div className="aspect-square bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 rounded-2xl flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://cdn.poehali.dev/files/5ecc3083-4d4d-4a93-96a6-bfe4519057dd.png" 
+                    alt="Luxury Client Logo"
+                    className="w-full h-full object-contain p-8"
+                  />
                 </div>
               </div>
             </div>
