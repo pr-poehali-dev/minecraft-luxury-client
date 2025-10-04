@@ -24,7 +24,7 @@ const Index = () => {
                 Возможности
               </a>
               <a href="#download" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
-                Скачать
+                Тарифы
               </a>
               <a href="/login" className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-medium">
                 Войти
@@ -54,17 +54,21 @@ const Index = () => {
                   className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 animate-glow"
                   asChild
                 >
-                  <a href="https://luxury.client" target="_blank" rel="noopener noreferrer">
-                    <Icon name="Download" size={20} className="mr-2" />
-                    Скачать
+                  <a href="#download">
+                    <Icon name="ShoppingCart" size={20} className="mr-2" />
+                    Купить
                   </a>
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
                   className="border-2 border-primary/50 hover:bg-primary/10 text-lg px-8"
+                  asChild
                 >
-                  Узнать больше
+                  <a href="https://luxury.client" target="_blank" rel="noopener noreferrer">
+                    <Icon name="Download" size={20} className="mr-2" />
+                    Скачать
+                  </a>
                 </Button>
               </div>
             </div>
@@ -139,75 +143,139 @@ const Index = () => {
       </section>
 
       <section id="download" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Скачать
+                Выберите тариф
               </span>
             </h2>
             <p className="text-foreground/70 text-lg">
-              Установите Luxury Client и начните персонализировать свой игровой опыт
+              Получите доступ к Luxury Client — выберите подходящий вариант
             </p>
           </div>
 
-          <Card className="bg-card/50 backdrop-blur-sm border-border animate-scale-in">
-            <CardContent className="p-10">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Icon name="Package" size={24} className="text-primary" />
-                    <span className="text-sm font-semibold text-foreground/60">ВЕРСИЯ 1.0</span>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Icon name="Clock" size={48} className="text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">30 дней</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">250₽</span>
                   </div>
-                  <h3 className="text-3xl font-bold mb-2">Luxury Client v1.0</h3>
-                  <p className="text-foreground/70 mb-6">
-                    Совместим с Minecraft 1.20.x
-                  </p>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-start gap-3">
-                      <Icon name="CheckCircle" size={20} className="text-secondary mt-1" />
-                      <div>
-                        <span className="font-semibold">Настройка интерфейса:</span>
-                        <p className="text-sm text-foreground/60">Полный контроль над UI элементами</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Icon name="CheckCircle" size={20} className="text-secondary mt-1" />
-                      <div>
-                        <span className="font-semibold">Визуальные эффекты:</span>
-                        <p className="text-sm text-foreground/60">Расширенная кастомизация графики</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Icon name="CheckCircle" size={20} className="text-secondary mt-1" />
-                      <div>
-                        <span className="font-semibold">Профили настроек:</span>
-                        <p className="text-sm text-foreground/60">Сохранение и быстрое переключение</p>
-                      </div>
-                    </div>
+                  <p className="text-foreground/60 text-sm">Месячная подписка</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Все возможности клиента</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Обновления версий</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Техническая поддержка</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-12 h-14 animate-glow"
-                    asChild
-                  >
-                    <a href="https://luxury.client" target="_blank" rel="noopener noreferrer">
-                      <Icon name="Download" size={24} className="mr-2" />
-                      Скачать
-                    </a>
-                  </Button>
-                  <div className="flex items-center gap-2 text-sm text-foreground/50 justify-center">
-                    <Icon name="Shield" size={16} />
-                    <span>Безопасная загрузка</span>
+                <Button className="w-full bg-primary text-background hover:bg-primary/90" asChild>
+                  <a href="/login">
+                    Купить
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-2 border-primary relative overflow-hidden animate-scale-in [animation-delay:100ms]">
+              <div className="absolute top-4 right-4 bg-primary text-background px-3 py-1 rounded-full text-xs font-bold">
+                ПОПУЛЯРНО
+              </div>
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Icon name="Calendar" size={48} className="text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">365 дней</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">450₽</span>
+                    <div className="text-sm text-foreground/60 mt-1">
+                      <span className="line-through">3000₽</span> экономия 2550₽
+                    </div>
+                  </div>
+                  <p className="text-foreground/60 text-sm">Годовая подписка</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Все возможности клиента</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Обновления версий</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Приоритетная поддержка</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Эксклюзивные профили</span>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+
+                <Button className="w-full bg-primary text-background hover:bg-primary/90 animate-glow" asChild>
+                  <a href="/login">
+                    Купить
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in [animation-delay:200ms]">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Icon name="Infinity" size={48} className="text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">Навсегда</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">599₽</span>
+                  </div>
+                  <p className="text-foreground/60 text-sm">Разовый платёж</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Все возможности клиента</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Все обновления навсегда</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">VIP поддержка</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Ранний доступ к функциям</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Эксклюзивный бейдж</span>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-primary text-background hover:bg-primary/90" asChild>
+                  <a href="/login">
+                    Купить
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
