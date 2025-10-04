@@ -67,7 +67,7 @@ const Index = () => {
                     className="border-2 border-primary/50 hover:bg-primary/10"
                     asChild
                   >
-                    <a href="https://t.me/yourchannel" target="_blank" rel="noopener noreferrer">
+                    <a href="https://t.me/luxuryclientt" target="_blank" rel="noopener noreferrer">
                       <Icon name="Send" size={20} />
                     </a>
                   </Button>
