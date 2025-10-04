@@ -26,6 +26,9 @@ const Index = () => {
               <a href="#download" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
                 Скачать
               </a>
+              <a href="/dashboard" className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                Личный кабинет
+              </a>
             </div>
           </div>
         </div>
