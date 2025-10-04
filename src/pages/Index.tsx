@@ -285,10 +285,18 @@ const Index = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-primary text-background hover:bg-primary/90 animate-glow" asChild>
-                  <a href="/login">
-                    Купить
-                  </a>
+                <Button 
+                  className="w-full bg-primary text-background hover:bg-primary/90 animate-glow"
+                  onClick={() => {
+                    const storedUser = localStorage.getItem('user');
+                    if (storedUser) {
+                      navigate('/purchase?plan=365 дней&price=450');
+                    } else {
+                      navigate('/login');
+                    }
+                  }}
+                >
+                  Купить
                 </Button>
               </CardContent>
             </Card>
@@ -327,10 +335,18 @@ const Index = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-primary text-background hover:bg-primary/90" asChild>
-                  <a href="/login">
-                    Купить
-                  </a>
+                <Button 
+                  className="w-full bg-primary text-background hover:bg-primary/90"
+                  onClick={() => {
+                    const storedUser = localStorage.getItem('user');
+                    if (storedUser) {
+                      navigate('/purchase?plan=Навсегда&price=599');
+                    } else {
+                      navigate('/login');
+                    }
+                  }}
+                >
+                  Купить
                 </Button>
               </CardContent>
             </Card>
