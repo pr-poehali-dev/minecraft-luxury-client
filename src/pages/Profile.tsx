@@ -314,6 +314,15 @@ const Profile = () => {
                   <Button
                     variant="outline"
                     className="w-full"
+                    onClick={() => navigate('/purchases')}
+                  >
+                    <Icon name="ShoppingBag" size={18} className="mr-2" />
+                    История покупок
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full"
                     onClick={() => {
                       setIsEditing(true);
                       setError('');

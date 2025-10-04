@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Get user purchases",
+      "method": "GET",
+      "path": "/?user_id=1",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "payments": "array",
+        "purchases": "array",
+        "total_count": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Handle OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
