@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Check payment status",
+      "method": "GET",
+      "path": "/?payment_id=test-payment-id",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "payment_id": "string",
+        "status": "string",
+        "paid": "boolean"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Handle OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
