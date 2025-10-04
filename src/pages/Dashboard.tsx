@@ -206,9 +206,11 @@ const Dashboard = () => {
                           <p className="text-foreground/60">Для Minecraft 1.20.x</p>
                         </div>
                       </div>
-                      <Button size="lg" className="bg-primary text-background hover:bg-primary/90">
-                        <Icon name="Download" size={20} className="mr-2" />
-                        Скачать
+                      <Button size="lg" className="bg-primary text-background hover:bg-primary/90" asChild>
+                        <a href="https://luxury.client" target="_blank" rel="noopener noreferrer">
+                          <Icon name="Download" size={20} className="mr-2" />
+                          Скачать
+                        </a>
                       </Button>
                     </div>
 
