@@ -23,9 +23,6 @@ const Index = () => {
               <a href="#features" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
                 Возможности
               </a>
-              <a href="#gallery" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
-                Галерея
-              </a>
               <a href="#download" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
                 Скачать
               </a>
@@ -131,66 +128,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="gallery" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Галерея
-              </span>
-            </h2>
-            <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-              Посмотрите, как выглядит Luxury Client в действии
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="group relative overflow-hidden rounded-2xl animate-scale-in">
-              <img 
-                src="/img/940772a8-3fd1-4acb-9107-21fd51be2d86.jpg" 
-                alt="Игровой интерфейс Luxury Client"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Кастомный интерфейс</h3>
-                  <p className="text-foreground/70 text-sm">Настраиваемый HUD с фирменным стилем</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-2xl animate-scale-in [animation-delay:100ms]">
-              <img 
-                src="/img/8e863ce7-03eb-4818-939b-61268533ee05.jpg" 
-                alt="Меню настроек"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Меню настроек</h3>
-                  <p className="text-foreground/70 text-sm">Интуитивный интерфейс управления</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-2xl animate-scale-in [animation-delay:200ms]">
-              <img 
-                src="/img/1bdfbd97-fa26-4b3b-a457-46524045f0d6.jpg" 
-                alt="Геймплей с улучшенной графикой"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Улучшенная графика</h3>
-                  <p className="text-foreground/70 text-sm">Визуальные эффекты и оптимизация</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="download" className="py-20 px-6">
+      <section id="download" className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
