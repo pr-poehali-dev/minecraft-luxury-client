@@ -1,8 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-border">
@@ -26,9 +43,21 @@ const Index = () => {
               <a href="#download" className="text-foreground/80 hover:text-foreground transition-colors font-medium">
                 Тарифы
               </a>
-              <a href="/login" className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-medium">
-                Войти
-              </a>
+              {user ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-foreground/80">Привет, {user.username}!</span>
+                  <button 
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg hover:bg-destructive/90 transition-colors font-medium"
+                  >
+                    Выйти
+                  </button>
+                </div>
+              ) : (
+                <a href="/login" className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                  Войти
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -1,16 +1,83 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/f6598e55-c953-4948-8fda-08c3684c816e', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Ошибка входа');
+        setLoading(false);
+        return;
+      }
+
+      if (data.success) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate('/');
+      }
+    } catch (err) {
+      setError('Ошибка подключения к серверу');
+      setLoading(false);
+    }
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/1d1511d6-493b-4fac-a37e-ba09d4c9e665', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Ошибка регистрации');
+        setLoading(false);
+        return;
+      }
+
+      if (data.success) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate('/');
+      }
+    } catch (err) {
+      setError('Ошибка подключения к серверу');
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,7 +108,7 @@ const Login = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={isLogin ? handleLogin : handleRegister} className="space-y-4">
               {!isLogin && (
                 <div>
                   <label className="text-sm font-medium mb-2 block">
@@ -56,8 +123,11 @@ const Login = () => {
                     <input
                       type="text"
                       placeholder="Введите никнейм"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       className="w-full bg-muted border border-border rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
@@ -76,8 +146,11 @@ const Login = () => {
                   <input
                     type="email"
                     placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-muted border border-border rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                     required
+                    disabled={loading}
                   />
                 </div>
               </div>
@@ -95,53 +168,28 @@ const Login = () => {
                   <input
                     type="password"
                     placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-muted border border-border rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                     required
+                    minLength={6}
+                    disabled={loading}
                   />
                 </div>
               </div>
 
-              {!isLogin && (
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Повторите пароль
-                  </label>
-                  <div className="relative">
-                    <Icon 
-                      name="Lock" 
-                      size={18} 
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40"
-                    />
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      className="w-full bg-muted border border-border rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                      required
-                    />
-                  </div>
-                </div>
-              )}
-
-              {isLogin && (
-                <div className="flex items-center justify-between text-sm">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-border bg-muted"
-                    />
-                    <span className="text-foreground/60">Запомнить меня</span>
-                  </label>
-                  <a href="#" className="text-primary hover:underline">
-                    Забыли пароль?
-                  </a>
+              {error && (
+                <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg text-sm">
+                  {error}
                 </div>
               )}
 
               <Button
                 type="submit"
                 className="w-full bg-primary text-background hover:bg-primary/90 py-6 text-lg"
+                disabled={loading}
               >
-                {isLogin ? "Войти" : "Зарегистрироваться"}
+                {loading ? 'Загрузка...' : (isLogin ? "Войти" : "Зарегистрироваться")}
               </Button>
             </form>
 
@@ -150,36 +198,16 @@ const Login = () => {
                 {isLogin ? "Нет аккаунта?" : "Уже есть аккаунт?"}
                 {" "}
                 <button
-                  onClick={() => setIsLogin(!isLogin)}
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    setError('');
+                  }}
                   className="text-primary hover:underline font-medium"
+                  disabled={loading}
                 >
                   {isLogin ? "Зарегистрироваться" : "Войти"}
                 </button>
               </p>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-border">
-              <p className="text-center text-foreground/40 text-sm mb-4">
-                Или продолжите с
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  className="border-border hover:bg-muted"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <Icon name="Github" size={18} className="mr-2" />
-                  GitHub
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-border hover:bg-muted"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <Icon name="Chrome" size={18} className="mr-2" />
-                  Google
-                </Button>
-              </div>
             </div>
           </CardContent>
         </Card>
