@@ -84,34 +84,16 @@ const Index = () => {
                 Премиальный клиент для Minecraft с полной настройкой интерфейса и внешнего вида под ваш стиль игры
               </p>
               <div className="flex flex-col gap-6">
-                <div className="flex gap-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 animate-glow"
-                    onClick={() => {
-                      const storedUser = localStorage.getItem('user');
-                      if (storedUser) {
-                        navigate('/purchase?plan=LUXURY CLIENT&price=599&type=client');
-                      } else {
-                        navigate('/login');
-                      }
-                    }}
-                  >
-                    <Icon name="Download" size={20} className="mr-2" />
-                    Купить клиент
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="border-2 border-primary/50 hover:bg-primary/10 text-lg px-8"
-                    asChild
-                  >
-                    <a href="#download">
-                      <Icon name="ShoppingCart" size={20} className="mr-2" />
-                      Тарифы
-                    </a>
-                  </Button>
-                </div>
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 animate-glow w-fit"
+                  asChild
+                >
+                  <a href="#download">
+                    <Icon name="ShoppingCart" size={20} className="mr-2" />
+                    Купить
+                  </a>
+                </Button>
                 
                 <div className="flex gap-4">
                   <Button 
