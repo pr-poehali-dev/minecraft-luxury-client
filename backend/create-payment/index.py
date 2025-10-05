@@ -8,10 +8,10 @@ from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Создание платежа через ЮKassa с поддержкой СБП
-    Args: event - dict с httpMethod, body (userId, planName, amount)
+    Business: Создание платежа через ЮKassa с поддержкой СБП и карт
+    Args: event - dict с httpMethod, body (userId, planName, amount, paymentMethod)
           context - объект с request_id
-    Returns: HTTP response с payment_id, payment_url, qr_code_url
+    Returns: HTTP response с payment_id, payment_url, qr_code_url или redirect_url
     '''
     method: str = event.get('httpMethod', 'GET')
     
@@ -38,6 +38,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     user_id = body_data.get('userId')
     plan_name = body_data.get('planName')
     amount = body_data.get('amount')
+    payment_method = body_data.get('paymentMethod', 'sbp')
     
     if not all([user_id, plan_name, amount]):
         return {
@@ -63,21 +64,39 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     auth_bytes = auth_string.encode('ascii')
     auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
     
-    yookassa_payload = {
-        "amount": {
-            "value": f"{amount:.2f}",
-            "currency": "RUB"
-        },
-        "confirmation": {
-            "type": "qr"
-        },
-        "capture": True,
-        "description": f"Оплата тарифа {plan_name}",
-        "metadata": {
-            "user_id": str(user_id),
-            "plan_name": plan_name
+    if payment_method == 'card':
+        yookassa_payload = {
+            "amount": {
+                "value": f"{amount:.2f}",
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": "https://your-domain.com/payment-success"
+            },
+            "capture": True,
+            "description": f"Оплата тарифа {plan_name}",
+            "metadata": {
+                "user_id": str(user_id),
+                "plan_name": plan_name
+            }
         }
-    }
+    else:
+        yookassa_payload = {
+            "amount": {
+                "value": f"{amount:.2f}",
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "qr"
+            },
+            "capture": True,
+            "description": f"Оплата тарифа {plan_name}",
+            "metadata": {
+                "user_id": str(user_id),
+                "plan_name": plan_name
+            }
+        }
     
     headers = {
         'Authorization': f'Basic {auth_b64}',
@@ -114,14 +133,26 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     cur.close()
     conn.close()
     
-    return {
-        'statusCode': 200,
-        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-        'isBase64Encoded': False,
-        'body': json.dumps({
-            'success': True,
-            'payment_id': payment_id,
-            'payment_url': payment_url,
-            'qr_code_url': payment_url
-        })
-    }
+    if payment_method == 'card':
+        return {
+            'statusCode': 200,
+            'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+            'isBase64Encoded': False,
+            'body': json.dumps({
+                'success': True,
+                'payment_id': payment_id,
+                'redirect_url': payment_url
+            })
+        }
+    else:
+        return {
+            'statusCode': 200,
+            'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+            'isBase64Encoded': False,
+            'body': json.dumps({
+                'success': True,
+                'payment_id': payment_id,
+                'payment_url': payment_url,
+                'qr_code_url': payment_url
+            })
+        }

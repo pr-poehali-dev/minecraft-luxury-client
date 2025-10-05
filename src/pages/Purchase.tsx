@@ -9,6 +9,7 @@ const Purchase = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'sbp' | 'card'>('sbp');
   const [paymentCreated, setPaymentCreated] = useState(false);
   const [paymentData, setPaymentData] = useState<any>(null);
   const [checkingPayment, setCheckingPayment] = useState(false);
@@ -70,7 +71,8 @@ const Purchase = () => {
         body: JSON.stringify({ 
           userId: user.id, 
           planName, 
-          amount: parseFloat(price)
+          amount: parseFloat(price),
+          paymentMethod
         }),
       });
 
@@ -83,8 +85,12 @@ const Purchase = () => {
       }
 
       if (data.success) {
-        setPaymentData(data);
-        setPaymentCreated(true);
+        if (paymentMethod === 'card' && data.redirect_url) {
+          window.location.href = data.redirect_url;
+        } else if (paymentMethod === 'sbp') {
+          setPaymentData(data);
+          setPaymentCreated(true);
+        }
       }
     } catch (err) {
       setError('Ошибка подключения к серверу');
@@ -289,14 +295,60 @@ const Purchase = () => {
 
                   <div className="space-y-2">
                     <Label>Способ оплаты</Label>
-                    <div className="bg-muted p-3 rounded-lg">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Icon name="Smartphone" size={20} className="text-primary" />
-                        <span className="font-medium">Система быстрых платежей</span>
-                      </div>
-                      <p className="text-xs text-foreground/60">
-                        Оплата через QR-код в приложении банка
-                      </p>
+                    <div className="space-y-3">
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('sbp')}
+                        className={`w-full p-4 rounded-lg border-2 transition-all ${
+                          paymentMethod === 'sbp' 
+                            ? 'border-primary bg-primary/10' 
+                            : 'border-border bg-muted hover:border-primary/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            paymentMethod === 'sbp' ? 'border-primary' : 'border-border'
+                          }`}>
+                            {paymentMethod === 'sbp' && (
+                              <div className="w-3 h-3 rounded-full bg-primary" />
+                            )}
+                          </div>
+                          <Icon name="Smartphone" size={20} className="text-primary" />
+                          <div className="text-left flex-1">
+                            <p className="font-medium">Система быстрых платежей</p>
+                            <p className="text-xs text-foreground/60">
+                              Оплата через QR-код в приложении банка
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('card')}
+                        className={`w-full p-4 rounded-lg border-2 transition-all ${
+                          paymentMethod === 'card' 
+                            ? 'border-primary bg-primary/10' 
+                            : 'border-border bg-muted hover:border-primary/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            paymentMethod === 'card' ? 'border-primary' : 'border-border'
+                          }`}>
+                            {paymentMethod === 'card' && (
+                              <div className="w-3 h-3 rounded-full bg-primary" />
+                            )}
+                          </div>
+                          <Icon name="CreditCard" size={20} className="text-primary" />
+                          <div className="text-left flex-1">
+                            <p className="font-medium">Банковская карта</p>
+                            <p className="text-xs text-foreground/60">
+                              Visa, MasterCard, МИР
+                            </p>
+                          </div>
+                        </div>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -315,8 +367,8 @@ const Purchase = () => {
                     </>
                   ) : (
                     <>
-                      <Icon name="QrCode" size={20} className="mr-2" />
-                      Перейти к оплате {price} ₽
+                      <Icon name={paymentMethod === 'sbp' ? 'QrCode' : 'CreditCard'} size={20} className="mr-2" />
+                      Оплатить {price} ₽
                     </>
                   )}
                 </Button>
