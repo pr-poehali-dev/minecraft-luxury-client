@@ -1,13 +1,19 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { useNavigate } from "react-router-dom";
+import MinecraftLoader from "@/components/MinecraftLoader";
 
 const DownloadFree = () => {
   const navigate = useNavigate();
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleDownload = () => {
-    window.open('https://example.com/luxury-client-free.zip', '_blank');
+    setShowLoader(true);
+    setTimeout(() => {
+      window.open('https://example.com/luxury-client-free.zip', '_blank');
+    }, 4000);
   };
 
   return (
@@ -160,6 +166,10 @@ const DownloadFree = () => {
           </Card>
         </div>
       </div>
+
+      {showLoader && (
+        <MinecraftLoader onComplete={() => setShowLoader(false)} />
+      )}
     </div>
   );
 };
