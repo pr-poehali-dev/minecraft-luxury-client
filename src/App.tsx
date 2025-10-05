@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Purchase from "./pages/Purchase";
 import Purchases from "./pages/Purchases";
 import DownloadFree from "./pages/DownloadFree";
+import LoaderDemo from "./pages/LoaderDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/purchases" element={<Purchases />} />
           <Route path="/download-free" element={<DownloadFree />} />
+          <Route path="/loader" element={<LoaderDemo />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
