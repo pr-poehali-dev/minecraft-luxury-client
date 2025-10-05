@@ -19,6 +19,7 @@ const Purchase = () => {
 
   const planName = searchParams.get('plan') || 'Standard';
   const price = searchParams.get('price') || '499';
+  const purchaseType = searchParams.get('type') || 'subscription';
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -72,7 +73,8 @@ const Purchase = () => {
           userId: user.id, 
           planName, 
           amount: parseFloat(price),
-          paymentMethod
+          paymentMethod,
+          purchaseType
         }),
       });
 
@@ -113,13 +115,13 @@ const Purchase = () => {
             </div>
             <CardTitle className="text-2xl">Оплата успешна!</CardTitle>
             <CardDescription>
-              Вы успешно приобрели тариф {planName}
+              {purchaseType === 'client' ? 'Вы успешно приобрели LUXURY CLIENT' : `Вы успешно приобрели тариф ${planName}`}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-muted p-4 rounded-lg space-y-2">
               <div className="flex justify-between">
-                <span className="text-foreground/60">Тариф:</span>
+                <span className="text-foreground/60">{purchaseType === 'client' ? 'Продукт:' : 'Тариф:'}</span>
                 <span className="font-medium">{planName}</span>
               </div>
               <div className="flex justify-between">
@@ -131,6 +133,25 @@ const Purchase = () => {
                 <span className="font-medium text-green-600">Оплачено</span>
               </div>
             </div>
+            
+            {purchaseType === 'client' && (
+              <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <Icon name="Download" size={20} className="text-primary mt-0.5" />
+                  <div className="flex-1">
+                    <p className="font-medium mb-2">Скачайте клиент</p>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => window.open('https://example.com/download', '_blank')}
+                    >
+                      <Icon name="Download" size={18} className="mr-2" />
+                      Скачать LUXURY CLIENT
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
             
             <Button
               className="w-full bg-gradient-to-r from-primary to-secondary"
@@ -260,7 +281,7 @@ const Purchase = () => {
               Оформление покупки
             </h1>
             <p className="text-foreground/60">
-              Оплата через Систему быстрых платежей
+              {purchaseType === 'client' ? 'Получите доступ к премиум клиенту' : 'Оплата через Систему быстрых платежей или картой'}
             </p>
           </div>
 
@@ -278,6 +299,12 @@ const Purchase = () => {
 
               <div className="space-y-4">
                 <div className="bg-gradient-to-br from-primary/10 to-secondary/10 p-6 rounded-lg border-2 border-primary/20">
+                  {purchaseType === 'client' && (
+                    <div className="flex items-center gap-3 mb-3">
+                      <Icon name="Download" size={24} className="text-primary" />
+                      <span className="text-sm font-medium text-primary">Покупка клиента</span>
+                    </div>
+                  )}
                   <h3 className="text-2xl font-bold mb-2">{planName}</h3>
                   <p className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     {price} ₽

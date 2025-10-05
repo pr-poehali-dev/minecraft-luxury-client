@@ -8,8 +8,8 @@ from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Создание платежа через ЮKassa с поддержкой СБП и карт
-    Args: event - dict с httpMethod, body (userId, planName, amount, paymentMethod)
+    Business: Создание платежа через ЮKassa с поддержкой СБП и карт для клиента и подписок
+    Args: event - dict с httpMethod, body (userId, planName, amount, paymentMethod, purchaseType)
           context - объект с request_id
     Returns: HTTP response с payment_id, payment_url, qr_code_url или redirect_url
     '''
@@ -39,6 +39,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     plan_name = body_data.get('planName')
     amount = body_data.get('amount')
     payment_method = body_data.get('paymentMethod', 'sbp')
+    purchase_type = body_data.get('purchaseType', 'subscription')
     
     if not all([user_id, plan_name, amount]):
         return {
@@ -64,6 +65,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     auth_bytes = auth_string.encode('ascii')
     auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
     
+    description = f"Покупка {plan_name}" if purchase_type == 'client' else f"Оплата тарифа {plan_name}"
+    
     if payment_method == 'card':
         yookassa_payload = {
             "amount": {
@@ -75,10 +78,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 "return_url": "https://your-domain.com/payment-success"
             },
             "capture": True,
-            "description": f"Оплата тарифа {plan_name}",
+            "description": description,
             "metadata": {
                 "user_id": str(user_id),
-                "plan_name": plan_name
+                "plan_name": plan_name,
+                "purchase_type": purchase_type
             }
         }
     else:
@@ -91,10 +95,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 "type": "qr"
             },
             "capture": True,
-            "description": f"Оплата тарифа {plan_name}",
+            "description": description,
             "metadata": {
                 "user_id": str(user_id),
-                "plan_name": plan_name
+                "plan_name": plan_name,
+                "purchase_type": purchase_type
             }
         }
     
