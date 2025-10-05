@@ -214,8 +214,47 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Icon name="Download" size={48} className="text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">Бесплатно</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">0₽</span>
+                  </div>
+                  <p className="text-foreground/60 text-sm">С ограничениями</p>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Базовые функции</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="X" size={18} className="text-muted-foreground mt-0.5" />
+                    <span className="text-sm text-muted-foreground">Без обновлений</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="X" size={18} className="text-muted-foreground mt-0.5" />
+                    <span className="text-sm text-muted-foreground">Без поддержки</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="X" size={18} className="text-muted-foreground mt-0.5" />
+                    <span className="text-sm text-muted-foreground">Реклама в клиенте</span>
+                  </div>
+                </div>
+
+                <Button 
+                  className="w-full bg-muted text-foreground hover:bg-muted/80"
+                  onClick={() => navigate('/download-free')}
+                >
+                  Скачать
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in [animation-delay:50ms]">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
                   <Icon name="Clock" size={48} className="text-primary mx-auto mb-4" />
@@ -229,22 +268,34 @@ const Index = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Все возможности клиента</span>
+                    <span className="text-sm">Все возможности</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Обновления версий</span>
+                    <span className="text-sm">Обновления</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Техническая поддержка</span>
+                    <span className="text-sm">Поддержка</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
+                    <span className="text-sm">Без рекламы</span>
                   </div>
                 </div>
 
-                <Button className="w-full bg-primary text-background hover:bg-primary/90" asChild>
-                  <a href="/login">
-                    Купить
-                  </a>
+                <Button 
+                  className="w-full bg-primary text-background hover:bg-primary/90"
+                  onClick={() => {
+                    const storedUser = localStorage.getItem('user');
+                    if (storedUser) {
+                      navigate('/purchase?plan=30 дней&price=250');
+                    } else {
+                      navigate('/login');
+                    }
+                  }}
+                >
+                  Купить
                 </Button>
               </CardContent>
             </Card>
@@ -260,7 +311,7 @@ const Index = () => {
                   <div className="mb-4">
                     <span className="text-4xl font-bold">450₽</span>
                     <div className="text-sm text-foreground/60 mt-1">
-                      <span className="line-through">3000₽</span> экономия 2550₽
+                      <span className="line-through">3000₽</span> -85%
                     </div>
                   </div>
                   <p className="text-foreground/60 text-sm">Годовая подписка</p>
@@ -269,19 +320,19 @@ const Index = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Все возможности клиента</span>
+                    <span className="text-sm">Все возможности</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Обновления версий</span>
+                    <span className="text-sm">Обновления</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Приоритетная поддержка</span>
+                    <span className="text-sm">Приоритет поддержка</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Эксклюзивные профили</span>
+                    <span className="text-sm">Эксклюзив профили</span>
                   </div>
                 </div>
 
@@ -301,7 +352,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in [animation-delay:200ms]">
+            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 animate-scale-in [animation-delay:150ms]">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
                   <Icon name="Infinity" size={48} className="text-primary mx-auto mb-4" />
@@ -315,11 +366,11 @@ const Index = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Все возможности клиента</span>
+                    <span className="text-sm">Все возможности</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Все обновления навсегда</span>
+                    <span className="text-sm">Обновления навсегда</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
@@ -327,11 +378,7 @@ const Index = () => {
                   </div>
                   <div className="flex items-start gap-2">
                     <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Ранний доступ к функциям</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Icon name="CheckCircle" size={18} className="text-primary mt-0.5" />
-                    <span className="text-sm">Эксклюзивный бейдж</span>
+                    <span className="text-sm">Ранний доступ</span>
                   </div>
                 </div>
 
