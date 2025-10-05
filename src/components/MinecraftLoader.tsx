@@ -63,7 +63,7 @@ const MinecraftLoader = ({ onComplete }: MinecraftLoaderProps) => {
           <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center animate-pulse">
             <Icon name="Box" size={40} className="text-white" />
           </div>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold luxury-gradient-text">
             LUXURY CLIENT
           </h2>
           <p className="text-foreground/60">Загрузка ресурсов...</p>

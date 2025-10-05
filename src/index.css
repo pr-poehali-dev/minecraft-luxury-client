@@ -102,3 +102,22 @@
     font-family: "Rajdhani", sans-serif;
   }
 }
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.luxury-gradient-text {
+  background: linear-gradient(90deg, #000000, #ffffff, #000000, #ffffff);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 3s ease infinite;
+}

@@ -29,7 +29,7 @@ const Index = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                 <Icon name="Box" size={24} className="text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="text-2xl font-bold luxury-gradient-text">
                 LUXURY CLIENT
               </span>
             </div>
@@ -408,7 +408,7 @@ const Index = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                 <Icon name="Box" size={18} className="text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="text-xl font-bold luxury-gradient-text">
                 LUXURY CLIENT
               </span>
             </div>
